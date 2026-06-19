@@ -1,0 +1,116 @@
+---
+layout: default
+title: Works
+---
+
+<section class="works-page">
+  <div class="section-inner">
+
+    <header class="works-header">
+      <div class="section-label">Published Works</div>
+      <h1>Articles, Videos &amp; More</h1>
+      <p class="works-intro">
+        A living archive of consulting work, conference presentations, technical
+        articles, and educational content. Filter by type or subject below.
+      </p>
+    </header>
+
+    <!-- ─── Filters ─────────────────────────────────────── -->
+    <div class="filters" id="filters">
+
+      <div class="filter-group">
+        <span class="filter-label">Type</span>
+        <div class="filter-buttons" role="group" aria-label="Filter by type">
+          <button class="filter-btn active" data-filter="type" data-value="all">All</button>
+          <button class="filter-btn" data-filter="type" data-value="article">Article</button>
+          <button class="filter-btn" data-filter="type" data-value="video">Video</button>
+          <button class="filter-btn" data-filter="type" data-value="talk">Talk</button>
+          <button class="filter-btn" data-filter="type" data-value="tutorial">Tutorial</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Subject</span>
+        <div class="filter-buttons" role="group" aria-label="Filter by subject">
+          <button class="filter-btn active" data-filter="subject" data-value="all">All</button>
+          {% assign all_subjects = "" | split: "" %}
+          {% for post in site.posts %}
+            {% if post.subjects %}
+              {% for s in post.subjects %}
+                {% assign all_subjects = all_subjects | push: s %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          {% assign unique_subjects = all_subjects | uniq | sort %}
+          {% for subject in unique_subjects %}
+          <button class="filter-btn" data-filter="subject" data-value="{{ subject | downcase | replace: ' ', '-' }}">{{ subject }}</button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="filter-group filter-sort">
+        <span class="filter-label">Sort</span>
+        <div class="filter-buttons">
+          <button class="filter-btn active" id="sort-newest">Newest</button>
+          <button class="filter-btn" id="sort-oldest">Oldest</button>
+        </div>
+      </div>
+
+      <div class="filter-status" id="filter-status" aria-live="polite"></div>
+    </div>
+
+    <!-- ─── Post Grid ─────────────────────────────────────── -->
+    <div class="works-grid" id="works-grid">
+      {% for post in site.posts %}
+      <article
+        class="work-card work-card-full"
+        data-type="{{ post.type | default: 'article' }}"
+        data-subjects="{{ post.subjects | join: ',' | downcase | replace: ' ', '-' }}"
+        data-date="{{ post.date | date: '%s' }}"
+      >
+        <div class="work-card-meta">
+          <span class="tag tag-type tag-{{ post.type | default: 'article' }}">
+            {{ post.type | default: 'article' }}
+          </span>
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%B %-d, %Y" }}
+          </time>
+        </div>
+
+        <h2 class="work-card-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h2>
+
+        {% if post.excerpt %}
+        <p class="work-card-excerpt">{{ post.excerpt | truncate: 180 }}</p>
+        {% endif %}
+
+        <div class="work-card-footer">
+          {% if post.subjects %}
+          <div class="work-card-subjects">
+            {% for s in post.subjects %}
+            <span class="tag tag-subject">{{ s }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {% if post.documents %}
+          <span class="work-has-docs" title="{{ post.documents | size }} attached document(s)">
+            📎 {{ post.documents | size }} doc{% if post.documents.size != 1 %}s{% endif %}
+          </span>
+          {% endif %}
+
+          <a href="{{ post.url | relative_url }}" class="read-link">Read →</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <p class="no-results" id="no-results" style="display:none;">
+      No works match the current filters. <button onclick="resetFilters()">Reset filters</button>
+    </p>
+
+  </div>
+</section>
+
+<script src="{{ '/assets/js/filter.js' | relative_url }}"></script>

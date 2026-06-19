@@ -1,42 +1,44 @@
-title: "Embedded for Everyone"
-author: "Nathan Jones"
-description: "Posts about building fun and useful embedded devices for hobbyists, students, or other auto-didacts." # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
+title: Mindstorms Engineering, LLC
+tagline: Embedded Systems, Thoughtfully Engineered
+description: >
+  Consulting, education, and technical writing at the intersection of
+  hardware, firmware, and real-world constraints.
 
-# Email / Social media user names used by the minima theme:
-# All of these are optional and can be removed or commented out
-#email: "example@mail.com"
-#twitter_username: "twitteruser"
-github_username: "nathancharlesjones"
-linkedin_username: "nathancharlesjones"
-#facebook_username: username
-#flickr_username: username
-#instagram_username: username
-#pinterest_username: username
-#youtube_username: username
-#googleplus_username: +username
+author:
+  name: Nathan Jones
+  email: contact@mindstormsengineering.com
+  phone: "615.488.4789"
+  business_hours: "8:30am – 2:30pm CT, Monday – Friday"
+  linkedin: https://www.linkedin.com/in/nathancharlesjones
+  github: https://github.com/nathancharlesjones
+  tindie: https://www.tindie.com/stores/0xc0decafe/
 
-#########################################################################################
-######### Nothing below needs to be changed (unless you know what you're doing) #########
-#########################################################################################
-theme: "minima"
+baseurl: ""
+url: "https://nathancharlesjones.github.io"
 
-rss: rss
+# Build settings
+markdown: kramdown
+permalink: /works/:year/:month/:day/:title/
+theme: null
 
-kramdown:
-  syntax_highlighter_opts:
-    disable: true
-    
+# Pagination (optional – requires jekyll-paginate gem)
+# paginate: 10
+# paginate_path: "/works/page:num/"
+
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
+  - jekyll-seo-tag
 
-titles_from_headings:
-  strip_title: true
-  collections: true
-
+# Front matter defaults
 defaults:
   - scope:
       path: ""
-      type: post
+      type: "posts"
     values:
-      tags: Other
+      layout: "post"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - "*.sh"
