@@ -36,9 +36,7 @@ title: Works
           {% assign all_subjects = "" | split: "" %}
           {% for post in site.posts %}
             {% if post.subjects %}
-              {% for s in post.subjects %}
-                {% assign all_subjects = all_subjects | push: s %}
-              {% endfor %}
+              {% assign all_subjects = all_subjects | concat: post.subjects %}
             {% endif %}
           {% endfor %}
           {% assign unique_subjects = all_subjects | uniq | sort %}
