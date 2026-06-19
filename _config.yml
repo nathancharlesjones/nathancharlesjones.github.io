@@ -18,7 +18,6 @@ url: "https://nathancharlesjones.github.io"
 
 # Build settings
 markdown: kramdown
-permalink: /works/:year/:month/:day/:title/
 theme: null
 
 # Pagination (optional – requires jekyll-paginate gem)
@@ -36,6 +35,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      permalink: /works/:year/:month/:day/:title/
 
 exclude:
   - README.md
